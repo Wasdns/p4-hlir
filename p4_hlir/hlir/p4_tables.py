@@ -18,6 +18,7 @@ import p4_headers
 import exclusive_conditions
 
 import os
+import sys
 import ast
 import inspect
 import logging
@@ -427,6 +428,9 @@ def _get_all_conditions(node, conditions):
     return _get_all_conditions(cb[0], conditions)
 
 def _set_modified_hdrs(hlir, entry_point, modified_hdrs):
+    # Set the maximum table number supported by p4-hilr
+    sys.setrecursionlimit(5000)
+    
     if not entry_point: return
     try:
         if entry_point._modified_hdrs.issuperset(modified_hdrs):
