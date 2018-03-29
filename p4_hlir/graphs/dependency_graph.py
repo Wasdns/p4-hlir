@@ -71,6 +71,11 @@ class Graph:
         self.nodes = {}
         self.root = None
 
+    def print_graph(self):
+    	print self.name
+    	print self.nodes
+    	print self.root
+
     def get_node(self, node_name):
         return self.nodes.get(node_name, None)
 
@@ -81,6 +86,10 @@ class Graph:
         self.root = node
 
     def topo_sorting(self):
+    	print "=====print graph====="
+    	self.print_graph()
+    	print "====================="
+
         if not self.root: return False
 
         # slightly annoying because the graph is directed, we use a topological
@@ -116,6 +125,12 @@ class Graph:
 
     def count_min_stages(self, show_conds = False):
         has_cycle, sorted_list = self.topo_sorting()
+
+        print "\n=====sorted list====="
+        print sorted_list
+        print "====================="
+        
+
         assert(not has_cycle)
         nb_stages = 0
         stage_list = []
@@ -215,6 +230,7 @@ def _graph_get_or_add_node(graph, p4_node):
         graph.add_node(node)
     return node
 
+# Note: this function generates the graph used to print TDG and calculate minimize stage number
 def generate_graph(p4_root, name):
     graph = Graph(name)
     next_tables = {p4_root}
